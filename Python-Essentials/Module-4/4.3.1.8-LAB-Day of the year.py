@@ -21,7 +21,7 @@ def days_in_month(year, month):
         month_days[1] = 29  # 29 days for February on a leap year.
     return month_days[month - 1]  # month 1 corresponds with index 0 & so on.
 
-def day_of_year(year, month, day):
+def day_of_year(year,month, day):
     total = 0  # initializing the total variable to add results
     # create loop to add only days in the months before the month in the input/test data
     for i in range(1, month):
