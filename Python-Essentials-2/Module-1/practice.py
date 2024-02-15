@@ -10,3 +10,5 @@ print(math.log10(100))
 
 # Printing Pi from Mathematical Module - Its value is Mathematical PI : 3.14
 print(math.pi)
+
+print(math.exp(1))
