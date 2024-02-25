@@ -7,5 +7,5 @@ for p in sys.path:
     print(p)
 
 # We can also add our existing folder to our path\
-from sys import path
-path.append('..\\modules')
+# from sys import path
+# path.append('..\\modules')
