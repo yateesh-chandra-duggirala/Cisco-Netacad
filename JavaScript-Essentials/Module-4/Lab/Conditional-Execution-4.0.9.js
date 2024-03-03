@@ -31,16 +31,16 @@ switch(choice) {
         alert(`The last contact : \nName : ${contacts[contacts.length - 1].name} \n Phone : ${contacts[contacts.length - 1].phone} \n Email : ${contacts[contacts.length - 1].email}`);
         break;
     case 3 :
-        let newContact = {}
         firstName = prompt("Enter the first name :");
         phone = Number(prompt("Enter Phone number : "));
         email = prompt("Enter the email : ");
 
         if(firstName && phone && email) {
+            let newContact = {}
             newContact.name = firstName;
             newContact.phone = phone;
             newContact.email = email;
-            contacts[contacts.length] = newContact;
+            contacts.push(newContact)
             console.log(newContact)
             alert("New contact added successfully")
             console.log(firstName, phone, email);
