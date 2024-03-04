@@ -1,3 +1,4 @@
+# initializing variables
 str1 = 'a'
 str2 = 'b'
 
