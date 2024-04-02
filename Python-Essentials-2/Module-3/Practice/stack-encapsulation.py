@@ -12,3 +12,5 @@ stack_object = Stack()
 
 # Trying to access the __stack_list - (would raise an Attribute Error Exception)
 print(len(stack_object.__stack_list))
+
+# print(len(stack_object._Stack__stack_list)) # But this will print to the console.

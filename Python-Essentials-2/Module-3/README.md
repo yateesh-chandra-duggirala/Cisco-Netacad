@@ -258,3 +258,89 @@ Secondly, Let us add two methods. but let us ask you : is it really adding ? We 
 - We see that the push method has been overridden - the same name as in the superclass now represents a different functionality.
 - So far, we have defined the __sum variable, but we have not provided a method to get its value. It seems to be hidden. How can we reveal it and do it in a way that still protects it from modifications?
 - We have to define a new method. We will name it get_sum. Its only task will be to return __sum value.
+
+# OOP Properties :
+
+1. Instance Variables :
+- In general, Class can be equipped with two different kinds of data to form a class's properties. 
+- The kind of class property exists when and only when it is explicitly created and added to an object.
+- As you already know, this can be done during the object's initialization, performed by the constructor.
+- Moreover, It can be done at any moment of the object's life. Furthermore, any existing property can be removed at any time.
+- Such an approach has some important consequences :
+    a. different objects of the same class may possess different sets of properties;
+    b. there must be a way to safely chek if a specific object owns the property you want to utilize (Unless you want to provoke an exception - It is always worth considering).
+    c. Each object carries its own set of properties - they do not interfere with one another in any way.
+- Such variables are called instance variables.
+- The word instance suggests that they are closely connected to the objects, not to the classes themselves.
+- Let us take a closer look at Example-Class.
+
+- Python objects, when created are gifted with a small set of predefined properties and methods. 
+- Each Object has got them, whether you want them or not.
+- One of them is a variable named __dict__ (It is a dictionary)
+- The variable contains the names and values of all the properties the object is currently carrying. Let us make use of it safely to present an object's contents.
+- Let us dive into the code now:
+    a. the class named ExampleClass has a constructor, which unconditionally creates and instance variable named first. and sets it with the value passed through the first argument (from the class user's perspective). or the second argument (from the constructor's perspective); Note the default value of the parameter - any trick you can do with a regular function parameter can be applied to methods, too.
+    b. The class also has a method which creates another instance variable named second.
+    c. We have created three objects of the class ExampleClass, but all these instances differ :
+        1. example_object_1 only has the property named first.
+        2. example_obejct_2 has two properties : first and second
+        3. example_object_3 has been enriched with a property named third just on the fly outside the class's code - this is possible and permissible.
+    d. Modifying an instance variable of any object has no impact on all the remaining objects. Instance variables are perfectly isolated from each other.
+- Let us run the same program but this time private variables
+- When python sees that you want to add an instance variable to an object and you are going to do it inside any of the object's methods, It mangles the operation in the following way :
+    a. It puts a class name before your name
+    b. it puts an additional underscore at the beginning
+- this is why __first becomes _ExampleClass_first
+The name is now fully accessible from outside the class when you try to access variable name like 
+`print(example_object._ExampleClass_first)`
+- And we will get a valid result with no errors or exceptions.
+- As you can see, making a property private is limited.
+- The mangling will not work if you add a private instance variable outside the class code. In this case, it will behave like any other ordinary property.
+
+2. Class Variables :
+- A class variable is a property which exists in just one copy and is stored outside any object.
+- Note : No instance variable exists if there is no object in the class; A class variable exists in one copy even if there are no objects in the class.
+- Class variables are created differently to their instance siblings. The example will tell you more : ExampleClass-class.py
+    a. There is an assignment in the first line of the class definition. - It sets the variable named counter to 0; Initializing the variable inside the class but outside any of its methods makes the variable a class variable.
+    b. Accessing such a variable looks the same as accessing any instance attribute - you can see it in the constructor body; as you can see, the constructor increments the variable by one. In effect, The variable counts all the created objects.
+- We must remember that :
+    a. Class variables are not shown in an object's __dict__ (This is natural as class variables are not part of objects) but always we can try to look into the variable of the same name, but at the class level - We will show you this very soon.
+    b. A class variable always presents the same value in all class instances (objects).
+- Mangling a class variables' name has the same effects as those you are already familiar with.
+
+3. Checking an attribute's existence :
+- We may not expect that all objects of the same class have the same sets of properties
+- Accessing a non-existing object attribute causes an AttributeError Exception.
+- The try-except instruction gives you the chance to avoid issues with non-existent properties.
+- Instead of doing so, We have a specific function that is provided by python to safely check if any object / class contains a specified property.
+- the function is named hasattr and expect two arguments to be passed to it.
+    a. The class or the object being checked.
+    b. The name of the property whose existence has to be reported (Note : It has to be a string containing the attribute name, not the name alone).
+- The function returns True or False.
+- This is how you can utilize it.
+- Do not forget the hasattr() function can operate on classes, too.
+- you can use it to find out if a class variable is available, just like here in the example in the editor.
+- The function returns True if the specified class contains a given attribute and False otherwise.
+
+## Inner Life of Classes and Objects : 
+- __dict__ (dictionary) method is used to find all the defined methods and attributes. Locate the context in which they exist : inside the object or inside the class.
+- __name__ attribute is absent from the object - it exists only inside classes
+- If you want to find the class of a particular object, you can use a function named type(), which is able to find a class which has been used to instantiate any object.
+- __module__ is a string that stores the name of the module which contains the definition of the class.
+- The module named "__main__" is actually not a module, but the file currently being run
+- __bases__ is a tuple. The tuple contains classes (Not Class names) which are direct superclasses for the class.
+- The order is the same as that used inside the class definition.
+- We will show you only a very basic example, as we want to highlight how inheritance works.
+- Also we will use this attribute when we discuss the object approach aspects of exceptions
+- Note : Only classes have this attribute - objects do not.
+- We have defined function named printbases(), designed to present the tuple's contents clearly.
+- If the class has superclass, it prints the names of the super class
+- A class without explicit superclasses points to an object (A predefined Python Class) as its direct ancestor.
+
+## Reflection and Introspection : 
+- Introspection is the ability of a program to examine the type or properties of an object at runtime.
+- Reflection is the ability of a program to manipulate the vales, properties and/or functions of an object at runtime.
+- In simple words, You do not have to know a complete class/ object definition to manipulate the object, as the object and/or its class contain the metadata allowing you to recognize its features during program execution.
+
+## Investigating classes :
+- Both Reflection and introspection enable a programmer to do anything with any object, no matter where it comes from
