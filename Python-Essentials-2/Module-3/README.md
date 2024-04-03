@@ -343,4 +343,222 @@ The name is now fully accessible from outside the class when you try to access v
 - In simple words, You do not have to know a complete class/ object definition to manipulate the object, as the object and/or its class contain the metadata allowing you to recognize its features during program execution.
 
 ## Investigating classes :
-- Both Reflection and introspection enable a programmer to do anything with any object, no matter where it comes from
+- Both Reflection and introspection enable a programmer to do anything with any object, no matter where it comes from.
+
+## Inheritance in OOPS :
+- When Python needs any class / object to be presented as a string (putting an object as an argument in the print() function invocation fits the condition) it tries to invoke the method named __str__() from the object and to use the string it returns.
+- __str__() method is used to return the string (<__main__.Star object at 0x000001C80AD2A810>) something related to this by default.
+- This behaviour can be changed by defining our own method of the name.
+- The term inheritance is older than computer programming and it describes the common practice of passing different goods from one person to another upon that person's death.
+- Inheritance is a common practice of passing attributes and methods from the superclass to a newly created class, called the subclass.
+- Inheritance is a way of building a new class, not from scratch, but by using an already defined repertoire of traits.
+- The new class inherits all the already existing equipment, but is able to add new ones if needed.
+- The most important factor of the process is the relation between the superclass and all of its subclasses (Note : If B is a subclass of A and C is a subclass of B, this also means C is a subclass of A, as the relationship is fully transitive)
+- A very simple example of two-level inheritance is presented here.
+    ```
+    class Vehicle :
+        pass
+    
+    class LandVehicle(Vehicle) :
+        pass
+    
+    class TrackedVehicle(LandVehicle) :
+        pass
+    ```
+- From the above piece of code,
+    1. The Vehicle class is the superclass for both LandVehicle and TrackedVehicle classes.
+    2. The LandVehicle class is a subclass of vehicle and a superclass of TrackedVehicle at the same time.
+    3. The TrackedVehicle class is a subclass of both the vehicle and LandVehicle classes.
+
+## Python offers below functions of Inheritance :
+### a. issubclass() :
+- This is able to identify a relationship between two classes, and although its diagnosis is not complex, it can check if a particular class is a subclass of any other class.
+- Returns True if ClassOne is a subclass of ClassTwo and False otherwise.
+- Each class can be a subclass of itself.
+
+### b. isinstance() :
+- An object is an incarnation of a class.
+- This means that the object is like a cake baked using a recipe which is included inside the class.
+- To check if an object is a part of certain class or not, we use the function isinstance().
+- The function returns True if the object is an instance of the class or False Otherwise.
+- If a subclass contains atleast the same equipment as any of its superclasses, it means that objects of the subclass can do the same as objects derived from the superclass, It is an instance of the home class and any of its superclass.
+
+### c. is operator :
+- The is operator checks whether two variables (object_one and object_two here) refer to the same object.
+- Do not forget that variables do not store the objects themselves, but only the handles pointing to the internal Python Memory.
+- Assigning a value of an object to another variable does not copy the object, but only its handle. This is why an operator like is may be very useful in particular circumstances.
+
+## How Python finds Properties and Methods:
+- Let us look at the code in inheritance-example.py and analyze the code :
+    a. There is a class named Super, which defined its own constructor used to assign the object's property, named name.
+    b. The class defines the __str__() method too which makes the class able to present its identity in clear text form.
+    c. The class is next used as a base to create a subclass named Sub. The Sub class defines its own constructor, which invokes the one from the superclass. Just by writing : Super.__init__(self, name)
+    d. We have explicitly named the superclass and pointed to the method to invoke __init__(), providing all needed arguments.
+    e. We have instantiated one object of class Sub and printed it.
+
+Note : As there is no __str__() method within the Sub Class, the printed string is to be produced within the Super class. This means that the __str__() method has been inherited by the Sub Class.
+
+- Also we can write super() instead of mentioning explicitly the class name
+- super() function accesses the superclass without needing to know its name.
+- super() function creates a context in which you do not have to pass the self argument to the method being invoked - this is why it is possible to activate the superclass constructor constructor using only one argument.
+- Note : You can use this mechanism not only to invoke the superclass constructor, but also to get access to any of the resources available inside the superclass.
+- For example, We can access the variables like class variables, instance variables
+- When you try to access any object's entity, python will try to :
+    a. First find it inside the object itself.
+    b. find it in all classes involved in the object's inheritance line from bottom to top.
+- if any of the above fails, an exception AttributeError is raised.
+- As you know, all objects deriving from a particular class may have different sets of attributes and some of the attributes may be added to the object a long time after the object's creation.
+- Multiple Inheritance occurs when a class has more than one superclass. 
+- Syntactically, such inheritance is presented as a comma-separated list of superclasses put inside parentheses after the new classname - just like here.
+- If more than one of the superclasses defines an entity of a particular name, It is overridden.
+- the entity defined later in the inheritance sense overrides the same entity defined earlier.
+- The feature can be intentionally used to modify default class behaviors when any of the classes needs to act in a different way to its ancestor.
+- We can also say that Python looks for an entity from bottom to top, and is fully satisfied with the first entity of the desired name.
+- When a class has two ancestors offering the same entity, and they lie on the same level, Python looks for the object components in the following order :
+    a. Inside the object itself
+    b. In its superclasses, from bottom to top
+    c. If there is more than one class on a particular inheritance path, Python scans from left to right.
+
+## Building Hierarchy of classes :
+- If you divide a problem among classes and decide which of them should be located at the top and which should be placed at the bottom of the hierarchy, you have to carefully analyse the issue, but before we show how to do it, We want to highlight an interesting effect.
+- It is nothing extraordinary, but remembering it may be a key to understanding how some codes work, and how the effect may be used to build a flexible set of classes.
+
+    ```
+    class One:
+        def do_it(self):
+            print("do_it from One")
+
+        def doanything(self):
+            self.do_it()
+
+
+    class Two(One):
+        def do_it(self):
+            print("do_it from Two")
+
+
+    one = One()
+    two = Two()
+
+    one.doanything()
+    two.doanything()
+        
+    ```
+
+- There are two classes named One and Two, while Two is derived from One. Nothing special. However one thing looks remarkable - the do_it() method.
+- The do_it() method is defined twice : orginally inside One and subsequently inside Two. The essence of the example lies in the fact that it is invoked just one - inside One.
+- The first invocation seems to be simple - invoking doanything() from the object named one will obviously activate the first of the methods.
+- The second invocation needs some attention.
+- It is simple, too if you keep in mind how Python finds class components.
+- The second invocation will launch do_it() in the form existing inside the Two class, regardless of the fact that the invocation takes place within the One class.
+- The situation in which the subclass is able to modify its superclass behavior is called polymorphism.
+- The word means that one and the same class can take various forms depending on the redefinitions done by any of its subclasses.
+- The method, redefined in any of the superclasses, thus changing the behavior of the superclass is called virtual.
+
+- Inheritance is not the only way to construct adaptable classes. 
+- You can achieve the same goals by using a technique named composition.
+- Composition is the process of composing an object using other different objects.
+- The objects used in the composition deliver a set of desired traits so we can say that they act like blocks used to build a more complicated structure.
+- It can be said that :
+    a. Inheritance extends a class's capabilities by adding new components and modifying existing ones; in other words, The complete recipe is contained inside the class itself and all its ancestors; The object takes all the class's belongings and makes use of them.
+    b. Composition projects a class as a container able to store and use other objects where each of the objects implements a part of the desired class's behavior.
+- Let us illustrate the difference by using the previously defined vehicles. The previous approach led us to a hierarchy of classes in which the top-most class was aware of the general rules used in turning the vehicle, but did not know how to control the appropriate components (wheels or tracks).
+- The subclasses implemented this ability by introducing specialized mechanisms.
+- Let us do the same thing, but using composition.
+- the class like in the previous example, is aware of how to turn the vehicle, but the actual turn is done by a specialized object stored in a property named controller. The controller is able to control the vehicle by manipulating the relevant vehicles' parts.
+- There are two classes named Tracks and Wheels – they know how to control the vehicle's direction. 
+- There is also a class named Vehicle which can use any of the available controllers (the two already defined, or any others defined in the future) – the controller itself is passed to the class during initialization.
+- A single inheritance class is always simpler, safer, and easier to understand and maintain
+- Multiple inheritance is always risky, as you have many more opportunities to make a mistake in identifying these parts of the superclasses which will effectively influence the new class.
+- Multiple inheritance may make overriding extremely tricky; moreover, using the super() function becomes ambiguous;
+
+## Method Resolution Order (MRO) :
+- If user tries to force (Top, Middle) in such a way that superclass precedes subclass, Then Python displays a message like :
+    `TypeError : Can not create a consistent method resolution order (MRO) for bases Top, Middle.`
+- Python's MRO cannot be bent or violated, not just because that is the way Python works, but also because it is a rule you have to obey.
+
+## The Diamond Problem
+- The second example of the spectrum of issues that can possibly arise from multiple inheritance is illustrated by a classic problem named the diamond problem.
+- The name reflects the shape of the inheritance diagram
+    a. There is the top most super class A
+    b. There are two subclasses derived from A: B and C
+    c. And there is also the bottom - most subclass named D, derived from B and C
+- Some programming languages do not allow multiple inheritance at all and as a consequence, they won't let you build a diamond - this is the route that Java and C# have chosen to follow since their origins.
+- Python however has chosen a different route - It allows multiple-inheritance and it does not mind if you write and run code with Multiple Inheritance, But Remember baout MRO - It is always in Charge
+
+## Exception in OOPS :
+- The object-oriented nature of Python's Exceptions makes them a very flexible tool, able to fit to specific needs, even those you do not yet know about.
+- Before we dive into the objective face of exceptions, we want to show you some syntactical and semantic aspects of how python treats the try-except block, as it offers a little more than what we have presented so far.
+- The first feature we want to discuss here is an additional, possible branch that can be placed inside the try-except block - It is the part of the code strating with else. as shown in exception-oop.py
+- A code labelled in this way is executed when no exception has been raised inside the try : part. 
+- We can say that exactly one branch can be executed after try : - either the one beginning with except (do not forget there can be more than one branch of this kind) or the one starting with else.
+- Note : The else branch has to be located after the last except branch.
+- There is another part headed by the finally keyword, which is the last branch of the code designed to handle exceptions.
+- These two variants : else and finally are not dependent in any way, and they can coexist or occur independently
+- The finally block is always executed, no matter what happened earlier, even when raising an exception, no matter whether this has been handled or not.
+
+### Exception are classes :
+- Exceptions are classes, Furthermore when an exception is raised, an object of the class is instantiated and goes through all levels of program execution, looking for the except branch that is prepared to deal with it.
+- Such an object carries some useful information which can help you to precisely identify all aspects of the pending situation.
+- To achieve that goal, Python offers a special variant of the exception clause.
+- As we can see, the except statement is extended, and contains an additional phrase starting with the as keyword, followed by an identifier.
+- The identifier is designed to catch the exception object so you can analyze its nature and draw some useful conclusions.
+- The identifier's scope covers its except branch, and does not go any further.
+- The example presents a very simple way of utilizing the received object - just print it out and it contains a brief message describing the reason.
+- The same message will be printed if there is no fitting except block in the code and python is forced to handle it alone.
+- All are built-in Python Exceptions form a hierarchy of classes. There is no obstacle to extending it if you find it reasonable.
+- As a tree is a perfect example of a recursive data structure, a recursion seems to be the best tool to traverse through it. The print_exception_tree() function takes two arguments.
+
+### Detailed Anatomy of exceptions : 
+- Let us take a closer look at the exception's object, as there are some really interesting elements here (We will return to the issue soon when we consider Python's input / Output base techniques, as their exception subsystem extends these objects a bit).
+- The BaseException class introduces a property named args.
+- It is a tuple designed to gather all arguments passed to the class constructor.
+- It is empty if the construct has been invoked without any arguments, or contains just one element when the constructor gets one argument.
+
+- We have used the function to print the contents of the args property in three different cases, where the exception of the Exception class is raised in three different ways.
+- To make it more spectacular, we have also printed the object itself, along with the result of the __str__() invocation.
+- the first case looks routine - there is just the name Exception after the raise keyword. This means that the object of this class has been created in a most routine way.
+- The second and third cases may look a bit weird at first glance, but there is nothing odd here - these are just the constructor invocations. In the second raise statement, the constructor is invoked with one argument and in the third with two.
+
+### Creating Own Exception :
+- The exceptions hierarchy is neither closed nor finished, and you can always extend it if you want or need to create your own world populated with your own exceptions.
+- It may be useful when you create a complex module which detects errors and raises exceptions, and you want the exceptions to be easily distinguishable from any others brought by Python.
+- This can be done by defining your own, new exceptions as subclasses derived from predefined ones.
+- If you want to create an exception which will be utilised as a specialised case of any built-in exception, derive it from just this one.
+- If you want to build your own hierarchy, and do not want it to be closely connected to Python's exception tree, derive it from any of the top exception classes, like exception.
+- Imagine that you have created a brand new arithmetic, ruled by your own laws and theorems.
+- It is clear that division has been redefined, too, and has to behave in a different way than routine dividing.
+- It is also clear that this new division should raise its own exception, different from the built-in ZeroDivisionError, But it is reasonable to assume that in some circumstances, you may want to treat all Zero Divisions in the same way.
+- Look into MyZeroDivisionError.py . We have the following observations : 
+    a. We have defined our own exception, named MyZeroDivisionError, derived from the built-in ZeroDivisionError.
+    b. As you can see, we have decided not to add any new components to the class
+    c. In effect, An exception of this class can be depending on the desired point of view - treated like a plain ZeroDivisionError, or considered seperately.
+    d. The do_the_division() function raises either a MyZeroDivisionError or ZeroDivisionError Exception, depending on the argument's value
+- The function is invoked four times in total, while the first two invocations are handled using only one except branch and the last two ones with two different branches, able to distinguish the exceptions (The order of the branches make fundamental difference).
+- When you are going to build a completely new universe filled with completely new creatures that having nothing in common with all the familiar things, you may want to build your own exception structure.
+- For example, If you work on a large simulation system which is intended to model the activities of a pizza restaurant, it can be desirable to form a seperate hierarchy of exceptions.
+- You can start building it by defining a general exception as a new base class for any other specialized exception, It can be done as:
+
+    ```
+    class PizzaError(Exception):
+        def __init__(self, pizza, message):
+            Exception.__init__(self, message)
+            self.pizza = pizza
+    ```
+- Note : We are going to collect more specific info here than a regular Exception does, so our constructor will take two arguments :
+    a. One specifying a pizza as a subject of the process
+    b. And one containing a more or less precise description of the problem.
+- As we can see, we pass the second parameter to the superclass constructor, and save the first inside our own property.
+- A more specific problem can require a more specific exception.
+- it is possible to derive the new class from the already defined PizzaError class :
+    ```
+    class TooMuchCheeseError(PizzaError):
+        def __init__(self, pizza, cheese, message):
+            PizzaError.__init__(self, pizza, message)
+            self.cheese = cheese
+    ```
+- The TooMuchCheeseError Exception needs more information than the regular PizzaError exception, so we add it to the constructor - the name cheese is then stored for further processing.
+- one of these is raised inside the make_pizza() function when any of these two erroneous situations is discovered : a wrong pizza request, or a request for too much cheese.
+- Note : 
+    a. removing the branch starting with except TooMuchCheeseError will cause all appearing exception to be classified as PizzaError
+    g. removing the branch starting with except PizzaError will cause the TooMuchCheeseError exceptions to remain unhandled, and will cause the program to terminate.
