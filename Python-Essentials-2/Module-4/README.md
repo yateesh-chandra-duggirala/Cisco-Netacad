@@ -1,4 +1,4 @@
-# Generators :
+## Generators :
 - A Python generator is a piece of specialized code able to produce a series of values and to control the iteration processes.
 - This is the reason why generators are also called as Iterators.
 - Consider the following piece of code :
@@ -66,4 +66,25 @@ c. in operator : Moreover the context created by the in operator allows you to g
     a. The first Lambda is an anonymous parameterless function that always returns 2. As we have assigned it to a variable named two, we can say that the function is not anonymous anymore and we can use that name to invoke it.
     b. The second one is a one parametered function that returns the value of its squared argument.
     c. The third lambda takes two parameters and returns the value of the first one raised to the power of the second one. The name of the variable which carries the lambda speaks for itself.
--
+- This is how code is made shorter, clearer and more legible
+
+## Lambdas and the map() function :
+- map() function is declared as map(function, list).
+- The second map() argument may be an entity that can be iterated  (eg. Tuple or just a generator)
+- map() can accept more than two arguments.
+- The map() function applies the function passed by its first argument to all its second argument's elements, and returns an iterator delivering all subsequent result.
+- You can use the resulting iterator in a loop or convert it into a list using the list() function.
+
+## Lambdas and filter() function :
+- This function expects same type of arguments as of map() function
+- It filters the second argument while being guided by directions flowing from the function specified as the first argument.
+
+## Closures :
+- A closure is a technique which allows the storing of values in spite of the fact that the context in which they have been created does not exist anymore.
+- Consider the example outer.py
+- inner() may be invoked only from within outer().
+- We can say that inner() is outer()'s private tool. No other part of the code can access it.
+- The inner() function is parameterless, so we have to invoke it without arguments.
+- Now It is fully possible to declare a closure equipped with an arbitrary number of parameters.
+- Closure not only makes use of the frozen environment, but it also can modify its behavior by using values taken from the outside.
+- This example shows one more interesting circumstance - you can create as many closures as you want using one and the same piece of code. This is done with a function named make_closure().
