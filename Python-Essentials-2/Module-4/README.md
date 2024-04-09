@@ -254,3 +254,18 @@ write and update    w+t     w+b
     g. errno.ENOENT -> No Such file or directory (Try to access a non-existent file / directory).
     h. errno.ENOSPC -> No space left on the device. (The error occurs when there is no free space on media).
 - We have a function that can dramatically simplify the error handling code, named strerror() and it comes from the os module and expects just one argument - an error number.
+
+## Processing text files :
+- We can read the file contents to process them by copying the file contents to the console and count all the characters the program has read in.
+- The file should be strict text file (No decorations, no different fonts, no characters unrecognized by ASCII).
+- We can read the function as `stream = open('file.txt', 'rt', encoding = 'utf-8')`
+### Method - 1 : read() 
+- read() function when applied to a text file, the function is able to :
+    a. Read a desired number of characters from the file, and return them as a string
+    b. Read all the file contents and return them as string.
+    c. If there is nothing more to read, the function returns an empty string.
+- Reading a terabyte - long file using this method may corrupt your OS.
+
+### Method - 2 : readline()
+- If we want to treat the file's contents as a set of lines, not a bunch of characters, the readLine() method will help you with that.
+- The method tries to read a complete line of text from the file, and returns it as a string in the case of success. or else, it returns an empty string.
