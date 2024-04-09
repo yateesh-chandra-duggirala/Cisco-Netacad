@@ -1,3 +1,4 @@
+# Generators - Iterators - Closures
 ## Generators :
 - A Python generator is a piece of specialized code able to produce a series of values and to control the iteration processes.
 - This is the reason why generators are also called as Iterators.
@@ -88,3 +89,168 @@ c. in operator : Moreover the context created by the in operator allows you to g
 - Now It is fully possible to declare a closure equipped with an arbitrary number of parameters.
 - Closure not only makes use of the frozen environment, but it also can modify its behavior by using values taken from the outside.
 - This example shows one more interesting circumstance - you can create as many closures as you want using one and the same piece of code. This is done with a function named make_closure().
+
+# Files :
+- One of the most common issues in the developer's job is to process data stored in files while the files are usually physically stored using storage devices - hard, optical, network, or solid-state disks.
+- Our program can can sort twenty numbers and it is equally easy to imagine the user of this program entering these twenty numbers directly from the keyboard.
+- When There are more than 20000 numbers to be sorted, and there is a single user who is able to enter these numbers without making a mistake.
+- It is much easier to imagine that these numbers are stored in the disk file which is read by the program. The program sorts the numbers and doesnot send them to the screen, but instead creates a new file and saves the sorted sequence of numbers there.
+- If we want to implement a simple database, the only way to store the information between program runs is to save into a file.
+- In principle, any non-trivial programming problem relies on the usage of files, whether it processes images or multiplies matrices or calculates wages and taxes.
+- Python's way of accessing and processing files is implemented using a consistent set of objects.
+
+## File names :
+- If we use the notion of a canonical file name, we can realize that these names look different in windows
+- Unix and Linux file names are case sensitive but windows are not.
+- The main and most striking difference is that you have to use two different seperators for the directory names : \ for windows and / for unix or linux.
+- But later both '/' and '\' are accepted for windows.
+- Any program written in Python does not communicate with the files directly, but through some abstract entities that are named differently in different languages or environments - the most - used terms are handles or streams.
+- The programmer, having a more- or less-rich set of functions/ methods is able to perform certain operation on the stream, which affect the real files using mechanisms contained in the operating system kernel.
+- In this way, you can implement the process of accessing any file, even when the name of the file is unknown at the time of writing the program.
+- The operations performed with the abstract stream reflect the activities related to the physical file.
+- To connect the stream with the file, It is necessary to perform an explicit operation.
+- The operation of connecting the stream with a file is called opening the file, while disconnecting this link is named as closing the file.
+- Hence the conclusion is that the very first operation performed on the stream is always open and the last one is close.
+- The program is free to manipulate the stream between these two events and to handle the associated file.
+- This freedom is limited, of course by the physical characteristics of the file and the way in which the file has been opened.
+- Opening of the stream can fail, and it may happen due to several reasons : The most common is the lack of a file with a specified name.
+- It can also happen that the physical file exists, but the program is not allowed to open it.
+- There is also the risk that the program has opened too many strams and the specific operating system may not allow the simultaneous opening of more than n files (may be 200)
+- A well written program should detect these failed openings and react accordingly.
+
+## File Streams : 
+- The opening of the stream is not only associated with the file, but should also declare the manner in which the stream will be processed.
+- This declaration is called an open mode.
+- If the opening is successful, the program will be allowed to perform only the operations which are consistent with the declared open mode.
+- There are two basic operations performed on the stream :
+    a. read from the stream : the portions of the data are retrieved from the file and placed in a memory area managed by the program.
+    b. write to the stream : The portions of the data from the memory are transferred to the file.
+- There are three basic modes used to open the stream :
+    a. read mode : A stream opened in this mode allows read operations only, trying to write the stream will cause an exception (UnsupportedOperation - inherits from OSError and ValueError).
+    b. write mode : A stram opened in this mode allows write operations only, attempting to read the stream will cause the exception mentioned above.
+    c. update mode : A stream openend in this mode allows both read and write operations.
+- The stream almost behaves like a tape recorder.
+- When you read something from a stream, a virtual head moves over the stream according to the number of bytes transferred from the stream.
+- When you write something to the stream, the same head moves along the stream recording the data from the memory.
+
+## File Handles :
+- Python assumes that every file is hidden behind an object of an adequate class.
+- Of Course, It is hard not to ask how to interpret the word adequate.
+- Files can be processed in many different ways - some of them depends on the file's contents, some on the programmer's intentions.
+- In any case, different files may require sets of operations and behave in different ways.
+- An object of an adequate class is created when you open the file and annihilate it at the time of closing.
+- Between these two events, you can use the object to specify what operations should be performed on a particular stream.
+- The operations you are allowed to use are imposed by the way in which you have opened the file.
+- In general, The object comes from one of the classes shown here :
+    (RawIOBase, BufferedIOBase, TextIOBase from IOBase)
+
+- Note : You can never use constructors to bring these objects to life. The only way you obtain them is to invoke the function named open().
+- This function analyses the arguments you have provided and automatically creates the required object.
+- If you want to get rid of the object, you invoke the method named close()
+- The invocation will serve the connection to the object and the file, and will remove the object.
+- for our purposes, we will concern ourselves only with streams represented by BufferIOBase and TextIOBase objects.
+- Due to the type of stream's contexts, all the streams are divided into text and binary streams.
+- The text streams are structured in lines; That is, they contain typographical characters (letters, digits, punctuation, etc.) arranged in rows, as seen with the naked eye when you look at the contents of the file in the editor.
+- This file is written or read mostly character or character, or line by line.
+- The binary streams do not contain text but a sequence of bytes of any value.
+- This sequence can be for example, an executable program, an image, an audio or a video clip a database file,etc. As these files do not contain lines, the reads and writes relate to portions of data of any size.
+- Hence the data is read/ written byte by byte or block by block, where the size of the block usually ranges from one to an arbitrary chosen value.
+- In Unix/ Linux systems, the line ends are marked by a single character named LF (ASCII code 10) designed in python programs as \n.
+- Other OS, especially these derived from the prehistoric CP/M system (which applies to Windows family systems, too) use a different convention : The end of the line is marked by a pair of characters CR and LF which can be encoded as \r\n.
+- If a program is created responsible for processing a text file and it is written for windows, you can recongnize the ends of the lines by finding the \r\n characters, but the same program running in a Linux / Unix environment can be completely useless and vice versa : the program written for Unix / Linux systems may be useless in Windows. This undesirable feature of preventing the use of program in different environments are called non-portable.
+
+- It was done at the level of classes, which are responsible for reading and writing characters to and from the stream. It works in the following way :
+    a. When the stream is open and it is advised that the data in the associated file will be processed as text, it is switched into text mode.
+    b. During Reading / Write of lines from / to the associated file, nothing special occurs in the Unix Environment, but when the same operations are performed in the Windows environment, A process called a translation of newline characters occurs : When you read a line from the file, every pair of \r\n characters is replaced with a single \n character and vice versa during write operations, every \n characters is replaced with a pair of \r\n characters.
+    c. The mechanism is completely transparent to the program, which can be written as if it was intended for processing Unix / Linux text files only. The source code run in a windows environment all work properly, too
+    d. When the stream is open and it is advised to do so, its contents are taken as-is, without any conversion - no bytes are added or omitted.
+
+## Opening the Streams :
+- The opening of the Stream is performed by a function which can be invoked :
+    `stream = open(file, mode = 'r', encoding = None)`
+    a. The name of the function 'open' speaks for itself, if the opening is successful, the function returns a stream object; otherwise an exception is raised(FileNotFoundError, If the file to read does not exist).
+    b. The first parameter of the function specifies the name of the file to be associated with the stream
+    c. The second parameter mode specifies the open mode used for the stream, it is a string filled with a sequence of characters, and each of them has its own special meaning.
+    d. The third parameter encoding specifies the encoding type (eg. UTF-8 when working with text files)
+    e. The opening must be very first operation performed on the stream.
+- Note the mode and encoding arguments may be omitted - their default values are assumed then.
+- The default opening mode is read in text mode, while the default encoding depends on the platform used.
+
+### Modes :
+1. open mode : read (r)
+    - The stream will be opened in read mode.
+    - The file associated with the stream must exist and has to be readable, otherwise the open() function raises an exception.
+2. open mode : write (w)
+    - The stream will be opened in write mode.
+    - The file associated with the stream does not need to exist; if it doesn't exist it will be created; if it exists, it will be truncated to the length of zero; If the creation is not possible due to system permissions, the open() function rasies an exception.
+3. open mode : append (a)
+    - The stream will be opened in append mode.
+    - The file associated with the stream doesn't need to exist. If it does not exist, it will be created. If it exists, The virtual recording head will be set at the end of the file (The previous content of the file remains untouched).
+4. open mode : read and update (r+)
+    - The stream will be opened in read and update mode.
+    - The file associated with the stream must exist and has to be writeable, otherwise the open() function raises an exception.
+    - both read and write operations are allowed for the stream.
+5. w+ open mode : write and update
+    - The stream will be opened in write and update mode.
+    - The file associated with the stream doesn't need to exist; it will be created; the previous content of the file remains untouched
+    - both read and write operations are allowed for the stream
+
+## Selecting text and binary modes : 
+- If there is a letter at the end of the mode string, it means that the stream is to be opened in binary mode.
+- If the mode string ends with a letter t, the stream is opened in Text mode.
+- Text mode is the default behavior assumed when no binary / text mode specifier is used.
+- Finally, the successful opening of a file will set the current file position before the first byte of the file if the mode is not a and after the last byte of the file if the mode is set to a.
+
+                    text    binary
+read                rt      rb
+write               wt      wb
+append              at      ab
+read and update     r+t     w+t
+write and update    w+t     w+b
+
+- You can also open a file for its exclusive creation.
+- You can do this using the x open mode.
+- If the file already exists, the open() will raise an exception
+
+## Pre-opened Streams :
+- Any Stream operation must be preceded by the open() function. There are three well-defined exceptions.
+- When our program starts, the three streams are already opened and do not require any extra preparations.
+- Our program can use these streams explicitly if you take care to import the sys module. because that is where the declaration of the three streams is placed.
+- The names of these streams are : sys.stdin, sys.stdout, sys.stderr.
+- Let us analyze them :
+    a. sys.stdin (as standard input) stream is normally associated with the keyboard, pre-open for reading and regarded as the primary data source for the running programs. The well known input() function reads the data from stdin by default.
+    b. sys.stdout (as standard output) stream is normally associated with the screen, pre-open for writing, regarded as the primary target for outputting data by the running program. The well know print() function outputs the data to the stdout stream.
+    c. sys.stderr (as standard error output) stream is normally associated with the screen, pre-open for writing, regarded as the primary place where the running program should send information on the errors encountered during its work. We have not presented any method to send the data to this stream.
+    - The seperation of stdout gives the possibility of redirecting these two types of information to the different targets.
+    - More extensive discussion of this issue is beyond the scope of our course.
+    - The operation system handbook will provide more information on these issues
+## Closing Streams :
+- The last operation performed on a stream should be closing.
+- This action should be done by `stream.close()`
+    a. The name of the function is definitely self-commenting : close()
+    b. The function expects exactly no arguments; the stream does not need to be opened.
+    c. The function returns nothing, but raises an IOError exception in case of any error.
+    d. Most developers believe that the close() function always succeeds and thus there is no need to check if it is done its task properly.
+- This belief is only partly justified. If the stream was opened for writing and then series of write operations were performed, it may happen that the data sent to the stream has not been transferred to the physical device yet.
+- Since the closing of the stream forces the buffers to flush them, it may be that flushes fail and therefore the close() fails too.
+
+## Diagnosing stream problems :
+- The IOError object is equipped with a property named errno (the name comes from the phrase error number) and you can access it as follows :
+
+    `try :
+        # Some Stream operations
+    except IOError as exc: 
+        print(exc.errno)
+    `
+- The value of the errno attribute can be compared with one of the predefined symbolic constants defined in the errno module.
+- Let us take a look at some selected constants useful for detecting stream errors :
+
+    a. errno.EACCES -> Permission Denied (Occurs when try to open a file for writing but it actually has read-only attribute)
+    b. errno.EBADF -> Bad File Number (Occurs when try to operate with an unopened stream).
+    c. errno.EEXIST -> File exists (Try to rename file with previous name)
+    d. errno.EFBIG -> Files too large (try to create a file that is larger than the maximum allowed by the operating system)
+    e. errno.EISDIR -> Is a Directory (Try to treat a directory name as the name of an ordinary file.)
+    f. errno.EMFILE -> Too many open files (try to simultaneously open more streams than acceptable for your OS)
+    g. errno.ENOENT -> No Such file or directory (Try to access a non-existent file / directory).
+    h. errno.ENOSPC -> No space left on the device. (The error occurs when there is no free space on media).
+- We have a function that can dramatically simplify the error handling code, named strerror() and it comes from the os module and expects just one argument - an error number.
