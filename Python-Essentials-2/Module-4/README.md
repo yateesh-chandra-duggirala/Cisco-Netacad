@@ -269,3 +269,39 @@ write and update    w+t     w+b
 ### Method - 2 : readline()
 - If we want to treat the file's contents as a set of lines, not a bunch of characters, the readLine() method will help you with that.
 - The method tries to read a complete line of text from the file, and returns it as a string in the case of success. or else, it returns an empty string.
+
+## Writing into files :
+- write() is a function and it expects a single argument - a string that should be transferred to an Open file.
+- Open mode should reflect the way in which the data is transferred - writing a file opened in read mode will not succeed.
+- No new line character is added to the write()'s argument, so you have to add it yourself if you want the file to be filled with a number of lines.
+
+## Byte Array :
+- Amorphous data is data that has no specific shape or form. - They are just series of bytes.
+- This data can not be stored using any of the previously presented means - neither strings nor lists.
+- There should be a special container able to handle such data.
+- Python has more than one such special container -byterarra, an array containing bytes.
+- In order to read in a bit map image and process it in any way, you need to create explicitly, using one of the available constructors.
+- Such an invocation creates a byte array object able to store ten bytes.
+- Note : Such a constructor fills the whole array with zeros.
+- Bytearrays resemble lists in many aspects. For example, they are mutable they are a subject of the len() function, and you can access any of their elements using conventional indexing.
+- It is important to note that we must not set any byte array elements with a value which is not an integer (Violating this rule will cause a TypeError Exception) and you are not allowed to assign a value that does not come from the range 0 to 255 inclusive (unless you want to provoke a valueError exception)
+- You can treat any byte array elements as integer values.
+- The write() method returns a number of successfully written bytes.
+- If the value differ from the length of the method arguments, it may announce some write errors.
+
+## Reads bytes from a stream : 
+- Reading from a binary file requires the use of a specialized method name readinto(), as the method doesn't create a new byte array object, but fills a previously created one with the values taken from the binary file.
+- Note : 
+    a. The method returns the number of successfully read bytes.
+    b. The method tries to fill the whole space available inside its argument; if there are more data in the file than space in the argument, the read operation will stop before the end of the file.
+    c. Otherwise, the method's result may indicate that the byte array has only been filled fragmentarily.
+
+- Alternatively, we can use read() method to read the contents.
+- it is invoked without arguments, it tries to read all the contents of the file into memory, making them a part of a newly created object of the bytes class.
+- This class has some similarities to bytearray, with the exception of one significant difference - it is immutable.
+- This read() should be not be used when we are not sure whether the file's contents will fit the available memory.
+- If the read() method is invoked with an argument, it specifies the maximum number of bytes to be read.
+- The method tries to read the desired  number of bytes from the file, and the length of the returned object can be used to determine the number of bytes actually read.
+
+## Copying files - a simple and functional tool
+- We can copy files using this file stream, but that does not mean that it is efficient than commands of (cp) Linux and (copy) Windows.
