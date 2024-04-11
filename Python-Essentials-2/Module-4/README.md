@@ -305,3 +305,39 @@ write and update    w+t     w+b
 
 ## Copying files - a simple and functional tool
 - We can copy files using this file stream, but that does not mean that it is efficient than commands of (cp) Linux and (copy) Windows.
+
+# OS Module : 
+- This module helps users to interact with Operating System using Python.
+- It helps us to : 
+    a. make directories and files.
+    b. get information about the operating system
+    c. Manage processes.
+    d. Operate on I/O streams using file descriptors.
+
+### a. Getting Information about the Operating System
+- Before creating first directory structure, we can see how we get information about the current operating system.
+- This is really easy because of the function uname, which returns an object.
+- Systemname, nodename, release, version and machine are the attributes of the object.
+
+### b. Making Directories in Python
+- mkdir function helps us to create a directory.
+- my_dir -> this will create in the current working directory
+- ./my_dir -> This joins the path and creates the directory. This is also the same effect as previous.
+- ../my_first_directory -> This will create directory in the parent directoryof current working Directory.
+- /python/my_first_dictionary -> This is the absolute path that will create the directory which in turn is in the python directory in the root directory.
+
+- mkdir() can only work if there is no existing directory with same name. It does not create twice.
+- To change the directory permissions, chmod() function is used.
+
+### c. Recursive Directory Creation 
+- Instead of checking out to the folder and run mkdir command, OS module provides a method named makedirs()
+- makedirs enable recursive directory creation, which means that all directories in the path are created.
+- chdir() function works as cd command
+
+### d. Deleting Directories 
+- We can delete one directory with the help of rmdir function from os module that works similar to rmdir command.
+- If we want to delete any directory with all its sub-directories, Then we use the removedirs()
+
+### e. system function
+- We can simply use a function called system() that helps user to run any command as it is how they run on any Operating System.
+- If we get zero as exit status, It means the command ran successfully.
