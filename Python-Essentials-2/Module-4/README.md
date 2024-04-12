@@ -341,3 +341,65 @@ write and update    w+t     w+b
 ### e. system function
 - We can simply use a function called system() that helps user to run any command as it is how they run on any Operating System.
 - If we get zero as exit status, It means the command ran successfully.
+
+# Datetime module : 
+- This module provides classes for working with date and time.
+- Date and Time have countless uses and it probably is hard to find a production application that does not use them.
+- Some examples : 
+    a. Event Logging : We can determine when exactly an error occurs in our application.
+    b. tracking changes in the database : It is necessary to information about when a record is created or modified.
+    c. data validation : Knowing the current Date and time we can validate various types of data
+    d. Storing important information : Bank transfers need time and date when they were stored
+
+## a. Getting the current local date and creating date objects :
+- date is one of the classes provided by the datetime module.
+- objects of this class represent a date consisting of the year, month and day.
+- today() method returns a date object representing the current local date.
+- date(year, month, day) object is the default object of creation
+
+## b. Creating date object from timestamp
+- In Unix, The timestamp expresses the number of seconds since January 1, 1970, 00:00:00 (UTC).
+- This date is called the Unix epoch.
+- Because this is when the counting of time began on Unix systems.
+- The timestamp is actually the difference between a particular data and January 1, 1970, 00:00:00 (UTC), expressed in seconds.
+- To create a date object from a timestamp, we must pass a Unix timestamp to the fromtimestamp() method.
+- For this purpose, we use the time module, which provides time-related functions.
+- One of them is A FUNCTION called time(), which returns the number of seconds to current moment in the form of a flaot number.
+
+## c. Creating a date object using the ISO Format :
+- The Date time module provides several methods to create a date object. One of them is the from iso format method, which takes a date in the YYYY-MM-DD format compliant with the ISO 8601 Standard.
+- The ISO 8601 standard defines how the date and time are represented. - - It is often used, so it is worth taking a moment to familiarize yourself with it. 
+
+## d. Check the day of the week :
+- In order to check the day of the week, we have a method named weekday().
+- weekday() returns the number for the day of the week. like (0 : Sunday, 1 : Monday,....., 6 : Saturday).
+- isoweekday() is also same as weekday(), but this returns the proper number.(1 : Sunday, ... 7 : Saturday).
+
+## e. Time Objects Creation : 
+- DateTime module also provides time class.
+- The time class constructor accepts the parameters : time(hour, minute, second, microsecond, tzinfo, fold)
+- the tzinfo parameter is associated with Time Zones, While fold is associated with wall times
+
+## f. The Time Module : 
+- Python offers a module named time, which provides a time-related function.
+- sleep is a method of time module that would make the program suspend its execution for specific time.
+
+## g. The CTime() function:
+- The Time module provides a function called ctime, which converts the time in seconds to a string.
+- just writing time.ctime() would return the Current Timestamp.
+
+## h. the gmtime() and localtime() functions :
+- Let us understand time module that requires knowledge of the struct_time_class :
+    time.struct_time:
+    tm_year   # Specifies the year.
+    tm_mon    # Specifies the month (value from 1 to 12)
+    tm_mday   # Specifies the day of the month (value from 1 to 31)
+    tm_hour   # Specifies the hour (value from 0 to 23)
+    tm_min    # Specifies the minute (value from 0 to 59)
+    tm_sec    # Specifies the second (value from 0 to 61 )
+    tm_wday    # Specifies the weekday (value from 0 to 6)
+    tm_yday   # Specifies the year day (value from 1 to 366)
+    tm_isdst  # Specifies whether daylight saving time applies (1 – yes, 0 – no, -1 – it isn't known)
+    tm_zone   # Specifies the timezone name (value in an abbreviated form)
+    tm_gmtoff # Specifies the offset east of UTC (value in seconds)
+- gmtime() returns struct_function returns struct_time object in UTC, while localtime returns local time.
