@@ -26,20 +26,33 @@ Example output:
 
 import os
 
-class DirectorySearcher():
+os.chdir("Python-Essentials-2/Module-4/Lab")
+print(os.getcwd())
+
+def create_dirs():
+    os.makedirs("./tree/python/other_courses/c")
+    os.makedirs("./tree/python/other_courses/cpp")
+    os.makedirs("./tree/c/other_courses/cpp")
+    os.makedirs("./tree/c/other_courses/python")
+    os.makedirs("./tree/cpp/other_courses/c")
+    os.makedirs("./tree/cpp/other_courses/python")
+
+create_dirs()
+
+class DirectorySearcher:
     def find(self, path, dir):
         try:
             os.chdir(path)
-        except OSError :
+        except OSError:
+            # Doesn't process a file that isn't a directory.
             return
-    
+
         current_dir = os.getcwd()
         for entry in os.listdir("."):
             if entry == dir:
-                print(os.getcwd()+"/"+dir)
-            self.find(current_dir+"/"+entry, dir)
+                print(os.getcwd() + "\\" + dir)
+            self.find(current_dir + "\\" + entry, dir)
+
 
 ds = DirectorySearcher()
 ds.find("./tree", "python")
-    
-    
