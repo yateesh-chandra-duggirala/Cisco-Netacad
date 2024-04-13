@@ -440,3 +440,20 @@ write and update    w+t     w+b
     13. %d : Date (01)
     14. %j : Day Number of the week
     15. %W : Week Number of the Year
+
+# Calendar Module : 
+- Similar to Datetime Module, The Calendar module provides Constant in it.
+- The days of the week are represented as a integer.
+- Monday (calendar.MONDAY) : 0, Tuesday : 1, Wednesday : 2, ..... Sunday : 6
+- calendar function from calendar module allows to display the calendar for the whole year.
+- If we want to display the calendar with a different format, We can use :
+    a. w - date column width (def 2)
+    b. l - number of lines per week(def 1)
+    c. c - number of spaces between month columns (default 6)
+    d. m - number of columns (def 3)
+- prcal is the method that prints directly the year of the calendar passed as parameter.
+- we can also print the calendar for a specific month. using calendar.month(2024, 4) / use prmonth().
+- setfirstweekday() is a function that is used to set the first day of the week according to our choice.
+- the weekday() function returns the day of the week as an integer value for the given year, month, day.
+- weekheader() function requires us to specify the width in characters for one day of the week.
+- If the width you provide is greater than 3, still we will see the names truncated to length 3.
