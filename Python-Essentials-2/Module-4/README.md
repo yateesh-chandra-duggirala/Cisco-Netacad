@@ -403,3 +403,40 @@ write and update    w+t     w+b
     tm_zone   # Specifies the timezone name (value in an abbreviated form)
     tm_gmtoff # Specifies the offset east of UTC (value in seconds)
 - gmtime() returns struct_function returns struct_time object in UTC, while localtime returns local time.
+
+## i. asctime() and mktime() functions :
+- The time module has functions that expect struct_time object or tuple that stores values according to the indexes presented when discussing the struct_time class.
+- asctime() function is used to convert struct_time object to a string. If no argument is passed, by default, The local time function will be used.
+- mktime() function converts a struct-time object or a tuple that expresses the local time to the number of seconds since the unix epoch.
+
+## j. Creating datetime objects :
+- In the date time module, date and time can be represented either as seperate objects or as one object.
+- The class that combines date and time is called datetime.
+- The date time class has several methods that return the current date and time.
+    a. today() returns current local date and time with tzinfo attribute set to None.
+    b. now() returns the current local date and time the same as today.
+    c. utcnow() returns the current UTC date and time with the tzinfo attribute set to None.
+- Timestamp() method can be used to return the ts
+
+## k. Date and Time Formatting : 
+- strftime is the common method for all the above classes.
+- It allows us to return the date and time in the format we specify.
+- strftime method takes only one argument in the form of a string specifying a format that can consist of directives.
+- Time Delta is something that should perform some calculations over the date and time from the Date Time module.
+- Time Delta object contains the parameters : weeks, days, hours, minutes, seconds
+
+    1. %Y : Year (2024)
+    2. %y : Year (24)
+    3. %m : Month (01)
+    4. %M : Minutes
+    5. %B : Month Name (January)
+    6. %b : month name (Jan)
+    7. %H : Hour
+    8. %S : Seconds
+    9. %p : AM / PM
+    10. %a : day (Mon)
+    11. %A : Day (Monday)
+    12. %w : Week Day Number (2)
+    13. %d : Date (01)
+    14. %j : Day Number of the week
+    15. %W : Week Number of the Year
