@@ -457,3 +457,22 @@ write and update    w+t     w+b
 - the weekday() function returns the day of the week as an integer value for the given year, month, day.
 - weekheader() function requires us to specify the width in characters for one day of the week.
 - If the width you provide is greater than 3, still we will see the names truncated to length 3.
+- To check if a year is leap year or not : isleap() method is used if it is truly a leap year, returns True
+- To return the number of leap years count between specified interval, we use leapdays() method.
+
+## Classes for creating Calendars :
+- calendar.Calendar : provides methods to prepare calendar data for formatting.
+- calendar.TextCalendar : used to create regular text calendar.
+- calendar.HTMLCalendar : used to create HTML Calendars.
+- calendar.LocalTextCalendar : subclass of calendar.TextCalendar Class. Takes Locale parameter and return appropriate months and weekday names.
+
+## Creating Calendar Object : 
+- The Calendar class constructor takes one parameter named firstweekday, by default it is monday(0).
+- The Firstweekday parameter must be an integer between 0-6. 
+- iterweekdays() method is used to iterate week day numbers from the beginning.
+- itermonthdates() returns the dates in the specified month and year along with the days in that week inorder to complete the week.
+- itermonthdays() returns the days of date in the specified month and year along with the days in the week inorder to complete the week but as zero 
+- itermonthday2() returns the day in the form of tuples consisting of day of month, weekday number
+- itermonthday3() returns the day in the form of tuples consisting of a year, a month, and day of month numbers
+- itermonthday4() returns the day in the form of tuples consisting of a year, a month, and day of month, week numbers.
+- monthdays2calendar() is a method that is used return the tuples of date, week number but included in the week as a list.
